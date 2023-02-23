@@ -1,3 +1,6 @@
+KERNEL_PATH = ../system/kernel.c
+KERNEL_DEPS = vga.h
+
 run : myos.bin
 	qemu-system-i386 -kernel myos.bin
 
@@ -11,7 +14,7 @@ clean :
 	rm boot.o
 
 kernel.o : 
-	gcc -c ../system/kernel.c -o kernel.o -std=gnu99 -ffreestanding -nostdlib -Wall -Wextra -m32
+	gcc -c $(KERNEL_PATH) $(KERNEL_DEPS) -o kernel.o -std=gnu99 -ffreestanding -nostdlib -Wall -Wextra -m32
 
 boot.o : 
 	nasm -felf32 ../bootloader/boot.asm -o boot.o
