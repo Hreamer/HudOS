@@ -2,13 +2,12 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define MAX_PROCS 200
-
+#define MAX_PROCS 200       //arbitrary number of max processes but may be reduced later if memory constraints become an issue
 
 struct process_table_entry {
     uint8_t PID;            //PID of the process
-    uint32_t priority;     //Priority number of process
-    char* stackbase;       //Location in memory of the stackbase
+    uint32_t priority;      //Priority number of process
+    char* stackbase;        //Location in memory of the stackbase
 };
 
 struct process_node {
