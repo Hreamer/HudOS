@@ -18,7 +18,7 @@ Feature Todo
 4. Free standing std library  
 5. Kernel Memory Management  
 6. Process Creation & Running  
-7. Process Switching  
+7. Context Switching  
 8. Process Management  
 9. Shell  
 10. Built in shell commands  
