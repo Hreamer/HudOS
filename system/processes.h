@@ -2,20 +2,19 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define MAX_PROCS 200       //arbitrary number of max processes but may be reduced later if memory constraints become an issue
+#define MAX_PROCS 254       //8-bit PID Means 254 Max Processes Allowed as one is reserved for NULL process
 
-struct process_table_entry {
-    uint8_t PID;            //PID of the process
-    uint32_t priority;      //Priority number of process
-    char* stackbase;        //Location in memory of the stackbase
+// CODE FOR PROCESS INFORMATION STORAGE --------------------------
+struct process_entry {
+    uint8_t PID;                  //PID of the process
+    uint32_t priority;            //Priority number of process
+    char* stackbase;              //Location in memory of the stackbase
+    char* stacktop;               //Location in memory of top of stack 
+    uint8_t state;
 };
 
-struct process_node {
-    uint32_t priority;      //process priority 
-    uint32_t index;         //index into the process table
-    char* next;             //pointer to next node in the queue
-};
+uint8_t currProcessID;            //Process ID currently running
+process_entry process_table[];    //Process Table to store process entries
+//-----------------------------------------------------------------
 
-struct process_node endOfQueue;     //end of the process queue 
-struct process_node frontOfQueue;   //start of the process queue
 
