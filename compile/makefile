@@ -7,18 +7,17 @@ BIN_FLAGS = -T linker.ld -o myos.bin -ffreestanding -nostdlib boot.o kernel.o -m
 run : myos.bin
 	qemu-system-i386 -kernel myos.bin
 
-bin : kernel.o boot.o
+myos.bin : kernel.o boot.o
 	gcc $(BIN_FLAGS)
-	rm kernel.o
-	rm boot.o
 
 clean : 
 	rm kernel.o
 	rm boot.o
+	rm myos.bin
 
 kernel.o : 
 	gcc -r $(KERNEL_PATH) $(KERNEL_DEPS) $(KERNEL_FLAGS)
-	gcc -o myos.bin 
+#gcc -o myos.bin FOR SOME REASON WAS HERE
 
 boot.o : 
 	nasm -felf32 ../bootloader/boot.asm -o boot.o
