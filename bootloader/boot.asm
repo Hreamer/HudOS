@@ -62,7 +62,7 @@ _start:
 	; point instructions and instruction set extensions are not initialized
 	; yet. The GDT should be loaded here. Paging should be enabled here.
 	; C++ features such as global constructors and exceptions will require
-	; runtime support to work as well.
+	; runtime support to work as well.	
  
 	; Enter the high-level kernel. The ABI requires the stack is 16-byte
 	; aligned at the time of the call instruction (which afterwards pushes
@@ -88,3 +88,31 @@ _start:
 .hang:	hlt
 	jmp .hang
 .end:
+
+global setGdt
+
+gdtr DW 0 ; For limit storage
+	DD 0 ; For base storage
+
+setGdt:
+	MOV   EAX, [esp + 4]
+	MOV   [gdtr + 2], EAX
+	MOV   AX, [ESP + 8]
+	MOV   [gdtr], AX
+	LGDT  [gdtr]
+	RET
+
+global reloadSegments
+global reload_CS
+reloadSegments:
+	; Reload CS register containing code selector:
+	JMP   0x08:reload_CS ; 0x08 points at the new code selector
+reload_CS:
+	; Reload data segment registers:
+	MOV   AX, 0x10 ; 0x10 points at the new data selector
+	MOV   DS, AX
+	MOV   ES, AX
+	MOV   FS, AX
+	MOV   GS, AX
+	MOV   SS, AX
+	RET
