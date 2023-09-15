@@ -6,6 +6,7 @@ OS Feature Progress
 1. Booted and displayed information through BIOS
 2. Booted into kernel.c 
 3. Simple VGA driver for displaying text on screen
+4. Setup GDT(LEEEETS GOOOOOOO!)
 
 Feature Todo  
 -------------------
